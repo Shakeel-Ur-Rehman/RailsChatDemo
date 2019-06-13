@@ -1,3 +1,3 @@
 class Message < ApplicationRecord
-    belongs_to :Messagethread
+    belongs_to :messagethread
 end
