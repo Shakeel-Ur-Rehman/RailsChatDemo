@@ -5,38 +5,56 @@ class MassagesController < ApplicationController
     before_action :setup_twilio_number
 
     def create
-        @threads=Messagethread.all
+        @threads=Messagethread.order('updated_at DESC').all
         @twilio=@twilio_number
         if(params.has_key?(:thread_id))
+        @thread_id=params["thread_id"]
         @thread=Messagethread.find(params["thread_id"])
         @messages=@thread.messages
         else
             @messages=[]
-        end
-        
-      
+        end  
     end
-    def sendsms
-       if @client.messages.create(
+    def sendsms   
+        if @client.messages.create(
             from:@twilio_number,
-            to:"+923015067211",
-            body:params["message"]["body"]
-        )
+         to:"+923015067211",
+         body:params["message"]["body"]
+       )
+    end
         @message=Message.new
         @message.to="+923015067211"
         @message.from=@twilio_number
+        @message.messagethread_id=params["message"]["thread_id"]
         @message.body=params["message"]["body"]
         @message.save
-       end
-        redirect_to :create
+        redirect_to controller: "massages", action: 'create',thread_id: params["message"]["thread_id"]
     end
 
     def recievesms
-    message=Message.new
-    message.to=@twilio_number
-    message.from=params["From"]
-    message.body=params["Body"]
-    message.save
+        phonenumber=params["From"];
+        @thread=Messagethread.where(phone:phonenumber);
+        if @thread.length > 0
+            message=Message.new
+            message.to=@twilio_number
+            message.from=params["From"]
+            message.messagethread_id=@thread.id
+            message.body=params["Body"]
+            message.save
+        else
+            @thread=Messagethread.new
+            @thread.description=params["Body"]
+            @thread.phone=params["From"]
+            @thread.topic="Thread Topic"
+            @thread.save
+            message=Message.new
+            message.to=@twilio_number
+            message.from=params["From"]
+            message.messagethread_id=@thread.id
+            message.body=params["Body"]
+            message.save
+        end
+   
     end
 
 private

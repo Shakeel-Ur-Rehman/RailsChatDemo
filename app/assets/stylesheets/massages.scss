@@ -59,7 +59,7 @@ img{ max-width:100%;}
   margin: 0;
   padding: 18px 16px 10px;
 }
-.inbox_chat { height: 550px; overflow-y: scroll;}
+.inbox_chat { height: 520px; overflow-y: scroll;}
 
 .active_chat{ background:#ebebeb;}
 
@@ -71,7 +71,7 @@ img{ max-width:100%;}
   display: inline-block;
   padding: 0 0 0 10px;
   vertical-align: top;
-  width: 92%;
+  width: 75%;
  }
  .received_withd_msg p {
   background: #ebebeb none repeat scroll 0 0;
@@ -130,7 +130,7 @@ img{ max-width:100%;}
   top: 11px;
   width: 33px;
 }
-.messaging { padding: 0 0 50px 0;}
+.messaging { padding: 0 0 0px 0;}
 .msg_history {
   height: 516px;
 }
