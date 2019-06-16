@@ -1,8 +1,17 @@
-class MassagesController < ApplicationController
+class MessagesController < ApplicationController
     protect_from_forgery except: :recievesms
     skip_before_action :verify_authenticity_token,only:[:recievesms]
     before_action :setuptwilio
     before_action :setup_twilio_number
+
+
+    def index
+    end
+
+
+
+
+
 
     def create
         @threads=Messagethread.order('updated_at DESC').all

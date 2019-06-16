@@ -9,12 +9,12 @@
               <h4>Recent</h4>
             </div>
             <div class="srch_bar">
-            <%= render partial: "/massages/partials/searchbar"%>
+            <%= render partial: "/messages/partials/searchbar"%>
             </div>
           </div>
           <div class="inbox_chat">
             <%@threads.each do |inbox|%>
-              <%= render partial: "/massages/partials/inbox",locals:{inbox:inbox} %>
+              <%= render partial: "/messages/partials/inbox",locals:{inbox:inbox} %>
             <%end%>
           </div>
           
@@ -43,12 +43,12 @@
             <%end%>
             </div>
           <div class="type_msg">
-              <%= render partial: "/massages/partials/typemessage" %>
+              <%= render partial: "/messages/partials/typemessage" %>
           </div>
         </div>
       </div>
       <div style="margin-top:25px">
-      <%= render partial: "/massages/partials/threaddetail" %>
+      <%= render partial: "/messages/partials/threaddetail" %>
       </div>
     </div>
    
