@@ -1,3 +1,4 @@
+<% if messagethread.present?%>
 <%messagethread.messages.each do |message|%>
     <%unless message.from==@twilio_number%>
     <div class="outgoing_msg">
@@ -15,5 +16,6 @@
       <span class="time_date"> <%=message.created_at.strftime("%I:%M%p")%>   |    <%=message.created_at.to_date.to_formatted_s(:short)%></span></div>
   </div>
 </div>
+    <%end%>
     <%end%>
     <%end%>

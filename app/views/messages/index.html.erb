@@ -25,8 +25,10 @@
           <%= render partial: "/messages/partials/messages",locals:{messagethread:@thread} %>
             </div>
           <div class="type_msg">
+              <%if @thread.present?%>
               <%= render partial: "/messages/partials/typemessage",locals:{phone:@thread.phone,thread_id:@thread.id} %>
-          </div>
+              <%end%>
+              </div>
         </div>
       </div>
       <div style="margin-top:25px">

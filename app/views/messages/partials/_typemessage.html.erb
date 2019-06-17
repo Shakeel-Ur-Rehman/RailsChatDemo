@@ -2,7 +2,7 @@
             <%=form_with url:sendsms_path ,scope:"message",remote:true do |message|%>
             <%=message.hidden_field :thread_id,value:thread_id%>
             <%=message.hidden_field :to,value:phone%>
-              <%=message.text_field :body,:class=>"write_msg",:placeholder=>"Type a message"%>
+              <%=message.text_field :body,:class=>"write_msg",:autocomplete=>"off",:placeholder=>"Type a message"%>
               <%=message.submit "Send Message",style:"background-color:#7fa7e8;width:20%"%>
               <%end%>
 </div>
