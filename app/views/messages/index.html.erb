@@ -22,10 +22,10 @@
         <div class="mesgs" style="width:45% !important">
           <div class="msg_history">
           <div style="height:480px;overflow-y:scroll" id="messages_list">
-          <%= render partial: "/messages/partials/messages" %>
+          <%= render partial: "/messages/partials/messages",locals:{messagethread:@thread} %>
             </div>
           <div class="type_msg">
-              <%= render partial: "/messages/partials/typemessage" %>
+              <%= render partial: "/messages/partials/typemessage",locals:{phone:@thread.phone,thread_id:@thread.id} %>
           </div>
         </div>
       </div>
@@ -33,4 +33,10 @@
       <%= render partial: "/messages/partials/threaddetail" %>
       </div>
     </div>
-            
+    <script>
+      function ScrollMessages(){
+        var objDiv = document.getElementById("messages_list");
+        objDiv.scrollTop = objDiv.scrollHeight;
+      }
+      ScrollMessages()
+    </script>
