@@ -6,24 +6,30 @@ class MessagesController < ApplicationController
 
 
     def index
-    end
-
-
-
-
-
-
-    def create
-        @threads=Messagethread.order('updated_at DESC').all
-        @twilio=@twilio_number
+        @threads=Messagethread.order('updated_at DESC').all    #TODO Need to add some pagination here.
         if(params.has_key?(:thread_id))
-        @thread_id=params["thread_id"]
-        @thread=Messagethread.find(params["thread_id"])
-        @messages=@thread.messages
+            @thread_id=params["thread_id"]
+            @thread=Messagethread.find(params["thread_id"])
+            @messages=@thread.messages
         else
             @messages=[]
         end  
     end
+
+
+    def create
+        @threads=Messagethread.order('updated_at DESC').all
+        if(params.has_key?(:thread_id))
+            @thread_id=params["thread_id"]
+            @thread=Messagethread.find(params["thread_id"])
+            @messages=@thread.messages
+        else
+            @messages=[]
+        end  
+    end
+
+
+
     def sendsms   
         if @client.messages.create(
             from:@twilio_number,

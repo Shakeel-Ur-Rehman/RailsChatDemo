@@ -3,5 +3,5 @@ Rails.application.routes.draw do
   get "sms",to:"messages#create",as:"create"
   post "sendsms",to:"messages#sendsms",as:"sendsms"
   post "sms/reply",to:"messages#recievesms"
-  root "messages#create"
+  root "messages#index"
 end

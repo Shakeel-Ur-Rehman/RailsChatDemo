@@ -1,5 +1,5 @@
 <center>
-<h4>Send Sms to <%=@twilio%> to start a thread</h4>
+<h4>Send Sms to <%=@twilio_number%> to start a thread</h4>
 </center>
 <div class="messaging">
       <div class="inbox_msg">
@@ -23,7 +23,7 @@
           <div class="msg_history">
           <div style="height:480px;overflow-y:scroll">
           <%@messages.each do |message|%>
-            <%unless message.from==@twilio%>
+            <%unless message.from==@twilio_number%>
             <div class="outgoing_msg">
             <div class="sent_msg">
               <p><%=message.body%></p>
