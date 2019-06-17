@@ -3,8 +3,6 @@ class MessagesController < ApplicationController
     skip_before_action :verify_authenticity_token,only:[:recievesms]
     before_action :setuptwilio
     before_action :setup_twilio_number
-
-
     def index
         @threads=Messagethread.order('updated_at DESC').all    #TODO Need to add some pagination here.
         if(params.has_key?(:thread_id))
@@ -15,40 +13,13 @@ class MessagesController < ApplicationController
             @messages=[]
         end  
     end
-
-
     def create
-        @threads=Messagethread.order('updated_at DESC').all
-        if(params.has_key?(:thread_id))
-            @thread_id=params["thread_id"]
-            @thread=Messagethread.find(params["thread_id"])
-            @messages=@thread.messages
-        else
-            @messages=[]
-        end  
+        sendsms
+        @thread=Messagethread.find(params["message"]["thread_id"])
+        @messages=@thread.messages
     end
-
-
-
-    def sendsms   
-        if @client.messages.create(
-            from:@twilio_number,
-         to:"+923015067211",
-         body:params["message"]["body"]
-       )
-    end
-        @message=Message.new
-        @message.to="+923015067211"
-        @message.from=@twilio_number
-        @message.messagethread_id=params["message"]["thread_id"]
-        @message.body=params["message"]["body"]
-        @message.save
-        redirect_to controller: "massages", action: 'create',thread_id: params["message"]["thread_id"]
-    end
-
     def recievesms
-        phonenumber=params["From"];
-        @thread=Messagethread.where(phone:phonenumber);
+        @thread=Messagethread.where(phone:params["From"]);
         if @thread.length > 0
             message=Message.new
             message.to=@twilio_number
@@ -74,11 +45,26 @@ class MessagesController < ApplicationController
 
 private
 def setup_twilio_number
-    @twilio_number="+12566774391"
+    @twilio_number=ENV['twilio_number']
 end
 def setuptwilio
-    account_sid="ACab6167f6a86e1da9a2d17e8717249d6d"
-    auth_token="c1c6069c707156c12e5fac43dfa33267"
+    account_sid=ENV['account_sid']
+    auth_token=ENV['auth_token']
     @client=Twilio::REST::Client.new(account_sid, auth_token);
+end
+
+def sendsms   
+    if @client.messages.create(
+        from:@twilio_number,
+     to:"+923015067211",
+     body:params["message"]["body"]
+   )
+    @message=Message.new
+    @message.to="+923015067211"
+    @message.from=@twilio_number
+    @message.messagethread_id=params["message"]["thread_id"]
+    @message.body=params["message"]["body"]
+    @message.save
+   end
 end
 end
