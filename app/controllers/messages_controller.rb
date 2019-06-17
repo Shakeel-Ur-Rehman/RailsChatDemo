@@ -11,14 +11,16 @@ class MessagesController < ApplicationController
             @thread=Messagethread.last
         end  
     end
-    
+
     def create
         if(params.has_key?(:message))
             sendsms
+        @thread=Messagethread.find(params["message"]["thread_id"])
         else
             recievesms
+        @thread=Messagethread.find(@thread.id)
         end
-        @thread=Messagethread.find(params["message"]["thread_id"])
+       
     end
 
 
