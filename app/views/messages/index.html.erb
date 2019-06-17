@@ -1,3 +1,36 @@
-<div>
-Hello the landing page.
-</div>
+<center>
+<h4>Send Sms to <%=@twilio_number%> to start a thread</h4>
+</center>
+<div class="messaging">
+      <div class="inbox_msg">
+        <div class="inbox_people">
+          <div class="headind_srch">
+            <div class="recent_heading">
+              <h4>Recent</h4>
+            </div>
+            <div class="srch_bar">
+            <%= render partial: "/messages/partials/searchbar"%>
+            </div>
+          </div>
+          <div class="inbox_chat">
+            <%@threads.each do |inbox|%>
+              <%= render partial: "/messages/partials/inbox",locals:{inbox:inbox} %>
+            <%end%>
+          </div>
+          
+        </div>
+        <div class="mesgs" style="width:45% !important">
+          <div class="msg_history">
+          <div style="height:480px;overflow-y:scroll" id="messages_list">
+          <%= render partial: "/messages/partials/messages" %>
+            </div>
+          <div class="type_msg">
+              <%= render partial: "/messages/partials/typemessage" %>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:25px">
+      <%= render partial: "/messages/partials/threaddetail" %>
+      </div>
+    </div>
+            
