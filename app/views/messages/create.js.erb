@@ -1,0 +1,4 @@
+document.getElementById("message_body").value="";
+document.getElementById("messages_list").innerHTML="<%= j render partial: "/messages/partials/messages",locals:{messagethread:@thread} %>";
+var objDiv = document.getElementById("messages_list");
+objDiv.scrollTop = objDiv.scrollHeight;
