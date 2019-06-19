@@ -8,12 +8,11 @@ class TwilioAPI
     def validate_twilio_request?(accountid)
         return account_sid==accountid
     end
-    def sendSms(to,body,thread_id)
+    def sendSms(to,body)
         client.messages.create(
             from:ENV["twilio_number"],
             to:to,
             body:body
           )
-          Message.create_message(to,ENV["twilio_number"],body,thread_id)
     end
 end
