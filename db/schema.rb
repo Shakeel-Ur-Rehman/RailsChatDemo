@@ -10,19 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_30_080646) do
+ActiveRecord::Schema.define(version: 2019_06_13_090457) do
 
-  create_table "messages", force: :cascade do |t|
+  create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "to"
     t.string "from"
     t.string "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "Messagethread_id"
-    t.index ["Messagethread_id"], name: "index_messages_on_Messagethread_id"
+    t.bigint "messagethread_id"
+    t.index ["messagethread_id"], name: "index_messages_on_messagethread_id"
   end
 
-  create_table "messagethreads", force: :cascade do |t|
+  create_table "messagethreads", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "topic"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -30,4 +30,5 @@ ActiveRecord::Schema.define(version: 2019_05_30_080646) do
     t.string "phone"
   end
 
+  add_foreign_key "messages", "messagethreads"
 end
